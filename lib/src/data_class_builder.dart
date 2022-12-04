@@ -1,4 +1,4 @@
-import 'package:built_collection/built_collection.dart'; 
+import 'package:built_collection/built_collection.dart';
 import 'package:code_builder/code_builder.dart';
 import 'package:schema_dart/src/types.dart';
 
@@ -68,7 +68,8 @@ class DataClassBuilder {
     return source;
   }
 
-  String generateSource() => classBuilder.build().accept(dartEmitter).toString();
+  String generateSource() =>
+      classBuilder.build().accept(dartEmitter).toString();
 
   void buildFields() {
     final classFields = <Field>[];
@@ -132,9 +133,11 @@ class DataClassBuilder {
     addTrailingCommaToParameters(parameters);
 
     // create the body
-    final body = fields
+    var body = fields
         .map((field) => '${field.name}: ${field.name} ?? this.${field.name}')
         .reduce((value, element) => value + ',' + element);
+
+    body.substring(0, body.length - 1);
 
     final copyWithMethod = Method((b) {
       b
@@ -176,7 +179,9 @@ class DataClassBuilder {
       }
     }).reduce((prev, next) => prev + '&&' + next);
 
-    final collectionEquality = hasCollection ? 'final collectionEquals = const DeepCollectionEquality().equals;' : '';
+    final collectionEquality = hasCollection
+        ? 'final collectionEquals = const DeepCollectionEquality().equals;'
+        : '';
 
     return Code('''
   if (identical(this, other)) return true;
@@ -187,7 +192,9 @@ class DataClassBuilder {
   }
 
   void buildHashCodeGetter() {
-    final params = fields.map((field) => '${field.name}.hashCode').reduce((prev, next) => prev + '^' + next);
+    final params = fields
+        .map((field) => '${field.name}.hashCode')
+        .reduce((prev, next) => prev + '^' + next);
     final method = Method((b) {
       b
         ..name = 'hashCode'
@@ -207,7 +214,10 @@ class DataClassBuilder {
   }
 
   void buildToMapMethod() {
-    final body = fields.map((field) => field.toMapKeyAndValueString).reduce((value, element) => value + ',' + element);
+    var body = fields
+        .map((field) => field.toMapKeyAndValueString)
+        .reduce((value, element) => value + ',' + element);
+    body.substring(0, body.length - 1);
     final method = Method((b) {
       b
         ..name = 'toMap'
@@ -219,8 +229,9 @@ class DataClassBuilder {
   }
 
   void buildFromMapConstructor() {
-    final constructorBody =
-        fields.map((p) => p.fromMapArgumentAndAssignmentString).reduce((value, element) => value + ',' + element);
+    final constructorBody = fields
+        .map((p) => p.fromMapArgumentAndAssignmentString)
+        .reduce((value, element) => value + ',' + element);
     // return Code('return ${clazz.name.name}($body,);');
 
     final constructor = Constructor((b) {
@@ -271,7 +282,9 @@ class DataClassBuilder {
   }
 
   void buildToStringMethod() {
-    final params = fields.map((p) => p.name + ': ' '\$${p.name}').reduce((prev, next) => prev + ', ' + next);
+    final params = fields
+        .map((p) => p.name + ': ' '\$${p.name}')
+        .reduce((prev, next) => prev + ', ' + next);
     final method = Method((b) {
       b
         ..name = 'toString'
@@ -357,7 +370,8 @@ class _Field {
     this.useUTC = true,
   }) : typeReference = refer(type);
 
-  Reference? get typeRefAsNullable => isNullable ? typeReference : refer(type + '?');
+  Reference? get typeRefAsNullable =>
+      isNullable ? typeReference : refer(type + '?');
 
   // note: we only deal with lists since types are generated from PostgreSQL
   bool get isCollection => type.startsWith('List');
@@ -390,22 +404,29 @@ class _Field {
         break;
       case 'int':
         // - int --> map['fieldName']?.toInt()       OR     int.parse(map['fieldName'])
-        assignment = isNullable ? 'int.tryParse($mapKey ?? "")' : 'int.parse($mapKey)';
+        assignment =
+            isNullable ? 'int.tryParse($mapKey ?? "")' : 'int.parse($mapKey)';
         break;
       case 'double':
         // - double --> map['fieldName']?.double()   OR     double.parse(map['fieldName'])
         // note: dart, especially when used with web, would convert double to integer (1.0 -> 1) so account for it.
-        assignment = isNullable ? 'double.tryParse($mapKey ?? "")' : 'double.parse($mapKey)';
+        assignment = isNullable
+            ? 'double.tryParse($mapKey ?? "")'
+            : 'double.parse($mapKey)';
         break;
       case 'DateTime':
-        assignment = isNullable ? 'DateTime.tryParse($mapKey ?? "")' : 'DateTime.parse($mapKey)';
+        assignment = isNullable
+            ? 'DateTime.tryParse($mapKey ?? "")'
+            : 'DateTime.parse($mapKey)';
         break;
     }
 
     if (isCollection) {
-      // TODO: account for List<DateTime> since it's a List<String> 
+      // TODO: account for List<DateTime> since it's a List<String>
       //       unlike List<int>, List<double>, etc. which comes in the same type
-      assignment = isNullable ? '$mapKey == null ? null : $type.from($mapKey)' : '$type.from($mapKey)';
+      assignment = isNullable
+          ? '$mapKey == null ? null : $type.from($mapKey)'
+          : '$type.from($mapKey)';
     }
 
     return '$arg: $assignment';
