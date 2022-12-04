@@ -1,6 +1,6 @@
 name: schema_dart
 description: Generate dart type definitions from PostgreSQL database schema.
-homepage: https://github.com/osaxma
+homepage: https://github.com/iamdex/schema-dart
 version: 0.0.1+5
 repository: https://github.com/iamdex/schema-dart
 
