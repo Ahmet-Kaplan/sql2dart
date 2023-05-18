@@ -1,8 +1,8 @@
 import 'dart:io';
 
-import 'package:schema_dart/src/logger.dart';
-import 'package:schema_dart/src/table_reader.dart';
-import 'package:schema_dart/src/types_generator.dart';
+import 'package:sql2dart/src/logger.dart';
+import 'package:sql2dart/src/table_reader.dart';
+import 'package:sql2dart/src/types_generator.dart';
 import 'package:path/path.dart' as p;
 
 import 'types.dart';

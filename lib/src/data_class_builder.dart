@@ -1,6 +1,6 @@
 import 'package:built_collection/built_collection.dart';
 import 'package:code_builder/code_builder.dart';
-import 'package:schema_dart/src/types.dart';
+import 'package:sql2dart/src/types.dart';
 
 import 'types_generator.dart';
 

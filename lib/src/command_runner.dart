@@ -2,8 +2,8 @@ import 'dart:io';
 
 import 'package:args/args.dart';
 import 'package:args/command_runner.dart';
-import 'package:schema_dart/src/schema_converter.dart';
-import 'package:schema_dart/src/version.dart';
+import 'package:sql2dart/src/schema_converter.dart';
+import 'package:sql2dart/src/version.dart';
 
 import 'logger.dart';
 

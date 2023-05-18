@@ -7,7 +7,7 @@ Generate dart type definitions from PostgreSQL database schema (MVP)
 The package can be installed as follow:
 
 ```
-[~] dart pub global activate schema_dart
+[~] dart pub global activate sql2dart
 ```
 
 

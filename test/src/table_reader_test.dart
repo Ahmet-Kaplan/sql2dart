@@ -1,4 +1,4 @@
-import 'package:schema_dart/src/table_reader.dart';
+import 'package:sql2dart/src/table_reader.dart';
 import 'package:test/expect.dart';
 import 'package:test/scaffolding.dart';
 

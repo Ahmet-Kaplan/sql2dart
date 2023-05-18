@@ -1,6 +1,6 @@
 import 'dart:io';
 
-import 'package:schema_dart/schema_dart.dart';
+import 'package:sql2dart/sql2dart.dart';
 
 void main(List<String> args) async {
   try {

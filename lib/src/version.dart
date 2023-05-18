@@ -1,1 +1,1 @@
-const schemaDartVersion = '0.0.1';
+const schemaDartVersion = '0.0.2';
