@@ -8,7 +8,7 @@ import 'package:sql2dart/src/version.dart';
 import 'logger.dart';
 
 class SchemaDartRunner extends CommandRunner<void> {
-  SchemaDartRunner() : super('schema-dart', '') {
+  SchemaDartRunner() : super('sql2dart', '') {
     argParser.addOption(
       'connection-string',
       abbr: 'c',
@@ -60,15 +60,15 @@ class SchemaDartRunner extends CommandRunner<void> {
 Examples: 
 
   # generate data classes for public schema (default)
-  schema-dart -c postgresql://postgres:postgres@localhost:54322/postgres -o path/to/output/directory
+  sql2dart -c postgresql://postgres:postgres@localhost:54322/postgres -o path/to/output/directory
 
   # generate for data classes for a "cms" schema 
-  schema-dart -c <connection-string> -o <output-dir> -s cms
+  sql2dart -c <connection-string> -o <output-dir> -s cms
 
   # generate data classes for specific tables from public schema (format sensitive): 
-  schema-dart -c <connection-string> -o <output-dir> -t "users","posts"
+  sql2dart -c <connection-string> -o <output-dir> -t "users","posts"
   # or
-  schema-dart -c <connection-string> -o <output-dir> --schema=api --tables="profiles","posts"
+  sql2dart -c <connection-string> -o <output-dir> --schema=api --tables="profiles","posts"
   ''';
 
   @override

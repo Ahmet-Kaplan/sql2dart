@@ -1,7 +1,7 @@
 name: sql2dart
 description: Generate dart type definitions from PostgreSQL database schema.
 homepage: https://github.com/Ahmet-Kaplan/sql2dart
-version: 0.0.2
+version: 0.0.3
 repository: https://github.com/Ahmet-Kaplan/sql2dart.git
 
 environment:
